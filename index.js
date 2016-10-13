@@ -38,10 +38,12 @@ class TodoItem {
   }
 
   update (todo, i) {
-    this.input.dataset.idx = i
-    this.button.dataset.idx = i
-    this.input.checked = todo.done
-    this.text.textContent = todo.text
+    mobx.untracked(() => mobx.autorun(() => {
+      this.input.dataset.idx = i
+      this.button.dataset.idx = i
+      this.input.checked = todo.done
+      this.text.textContent = todo.text
+   }))
   }
 }
 
@@ -59,7 +61,7 @@ const todoApp =
 
 mount(document.body, todoApp)
 
-ti.update(todos)
+mobx.autorun(() => ti.update(todos))
 
 window.ti = ti
 window.mobx = mobx

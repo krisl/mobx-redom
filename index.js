@@ -14,8 +14,8 @@ function add (e) {
   todos.push({text: this.todo.value, done: false})
 }
 
-function remove (i) {
-  todos.splice(i, 1)
+function remove (e) {
+  todos.splice(e.target.dataset.idx, 1)
 }
 
 function onchange (e) {
@@ -26,7 +26,7 @@ class TodoItem {
   constructor () {
     this.input = el('input', { type: 'checkbox', onchange })
     this.text = text()
-    this.button = el('button', 'X')
+    this.button = el('button', {onclick: remove}, 'X')
     this.el =
       el('li',
         el('label',
@@ -39,9 +39,9 @@ class TodoItem {
 
   update (todo, i) {
     this.input.dataset.idx = i
+    this.button.dataset.idx = i
     this.input.checked = todo.done
     this.text.textContent = todo.text
-    this.button.onclick = () => remove(i)
   }
 }
 

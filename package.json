@@ -1,0 +1,12 @@
+{
+  "name": "mobx-redom",
+  "version": "0.0.1",
+  "description": "mobx redom",
+  "main": "index.js",
+  "repository": {
+    "url": "https://github.com/krisl/mobx-redom",
+    "type": "git"
+  },
+  "author": "Aaron Lipinski <kris.lipinski@gmail.com>",
+  "license": "MIT"
+}

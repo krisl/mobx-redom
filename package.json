@@ -8,5 +8,9 @@
     "type": "git"
   },
   "author": "Aaron Lipinski <kris.lipinski@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "mobx": "^2.6.0",
+    "redom": "^1.1.0"
+  }
 }

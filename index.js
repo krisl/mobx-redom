@@ -1,5 +1,5 @@
 const mobx = require('mobx')
-const { el, mount, setChildren } = require('redom')
+const { el, mount } = require('redom')
 
 const todos = mobx.observable([
   {text: 'make a todo list', done: false},
@@ -36,28 +36,17 @@ const todoItem = (todo, i) =>
     )
   )
 
-class TodoApp {
-  constructor () {
-    this.el = el('div')
-  }
+const todoApp =
+  el('div',
+    el('h3', 'TODO'),
+    el('ul', ...todos.map(todoItem)),
+    el('form', {onsubmit: add},
+      el('input', {name: 'todo'}),
+      el('button', 'Add')
+    )
+  )
 
-  update (todos) {
-    setChildren(this.el, [
-      el('h3', 'TODO'),
-      el('ul', ...todos.map(todoItem)),
-      el('form', {onsubmit: add},
-        el('input', {name: 'todo'}),
-        el('button', 'Add')
-      )
-    ])
-  }
-}
-
-const todoApp = new TodoApp
 mount(document.body, todoApp)
 
-todoApp.update(todos)
-
-window.todoApp = todoApp
 window.mobx = mobx
 window.todos = todos

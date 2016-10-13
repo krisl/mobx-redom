@@ -1,5 +1,5 @@
 const mobx = require('mobx')
-const { el, mount, setChildren, list } = require('redom')
+const { el, mount, list, text } = require('redom')
 
 const todos = mobx.observable([
   {text: 'make a todo list', done: false},
@@ -22,25 +22,26 @@ function onchange (e) {
   todos[e.target.dataset.idx].done = e.target.checked
 }
 
-
 class TodoItem {
   constructor () {
-    this.el = el('li')
+    this.input = el('input', { type: 'checkbox', onchange })
+    this.text = text()
+    this.button = el('button', 'X')
+    this.el =
+      el('li',
+        el('label',
+          this.input,
+          this.text,
+          this.button
+        )
+      )
   }
 
   update (todo, i) {
-    setChildren(this.el, [
-      el('label',
-        el('input', {
-          type: 'checkbox',
-          'data-idx': i,
-          checked: todo.done,
-          onchange
-        }),
-        todo.text,
-        el('button', {onclick: () => remove(i)}, 'X')
-      )]
-    )
+    this.input.dataset.idx = i
+    this.input.checked = todo.done
+    this.text.textContent = todo.text
+    this.button.onclick = () => remove(i)
   }
 }
 

@@ -25,9 +25,9 @@ function onchange (e) {
 }
 
 class TodoItem {
-  constructor () {
+  constructor (initData, item) {
     this.input = el('input', { type: 'checkbox', onchange })
-    this.text = text()
+    this.text = text(item.text)
     this.button = el('button', {onclick: remove}, 'X')
     this.el =
       el('li',

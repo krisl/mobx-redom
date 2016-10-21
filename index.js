@@ -46,6 +46,14 @@ class TodoItem {
     this.input.checked = todo.done
     this.text.textContent = todo.text
   }
+
+  mounted () {
+    console.log('mounted', this.input._todo)
+  }
+
+  remounted () {
+    console.log('remounted', this.input._todo)
+  }
 }
 
 const TodoItemMobx = connect(TodoItem)

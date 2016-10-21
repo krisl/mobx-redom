@@ -96,3 +96,5 @@ function connect (klass) {
     }
   }
 }
+
+module.exports = connect

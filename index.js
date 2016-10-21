@@ -15,11 +15,13 @@ function add (e) {
 }
 
 function remove (e) {
-  todos.splice(e.target.dataset.idx, 1)
+  console.log('removing', e.target._todo,
+    todos.indexOf(e.target._todo))
+  todos.splice(todos.indexOf(e.target._todo), 1)
 }
 
 function onchange (e) {
-  todos[e.target.dataset.idx].done = e.target.checked
+  e.target._todo.done = e.target.checked
 }
 
 class TodoItem {

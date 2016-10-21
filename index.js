@@ -38,16 +38,17 @@ class TodoItem {
   }
 
   update (todo, i) {
-    mobx.untracked(() => mobx.autorun(() => {
-      this.input.dataset.idx = i
-      this.button.dataset.idx = i
-      this.input.checked = todo.done
-      this.text.textContent = todo.text
-   }))
+    console.log('ii update', i, mobx.toJS(todo))
+    this.input._todo = todo
+    this.button._todo = todo
+    this.input.checked = todo.done
+    this.text.textContent = todo.text
   }
 }
 
-const ti = list('ul', TodoItem)
+const TodoItemMobx = connect(TodoItem)
+
+const ti = list('ul', TodoItemMobx, 'text')
 
 const todoApp =
   el('div',
@@ -66,3 +67,22 @@ mobx.autorun(() => ti.update(todos))
 window.ti = ti
 window.mobx = mobx
 window.todos = todos
+
+function connect (klass) {
+  return class extends klass {
+    dispose () {}
+    unmounted () {
+      this.dispose()
+    }
+
+    update (item) {
+      if (this.item === item) return
+
+      this.item = item
+      this.dispose()
+      mobx.untracked(() => {
+        this.dispose = mobx.autorun(() => super.update.apply(this, arguments))
+      })
+    }
+  }
+}

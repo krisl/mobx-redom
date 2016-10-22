@@ -9,7 +9,7 @@
   },
   "author": "Aaron Lipinski <kris.lipinski@gmail.com>",
   "license": "MIT",
-  "dependencies": {
+  "devDependencies": {
     "mobx": "^2.6.0",
     "redom": "^1.3.0"
   },
